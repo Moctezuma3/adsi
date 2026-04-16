@@ -2494,12 +2494,12 @@ li:last-child { border-bottom: none; }
   background: linear-gradient(180deg, rgba(10,12,15,0.25) 0%, rgba(10,12,15,0.75) 100%);
 }
 /* Per-panel images (assigned via nth-of-type fallback) */
-.panel:nth-of-type(1) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/01.jpg'); }
-.panel:nth-of-type(2) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/02.jpg'); }
-.panel:nth-of-type(3) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/03.jpg'); }
-.panel:nth-of-type(4) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/04.jpg'); }
-.panel:nth-of-type(5) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/05.jpg'); }
-.panel:nth-of-type(6) .aside-visual { background-image: url('/assets/images/telesurveillance-extra/01.jpg'); }
+.panel:nth-of-type(1) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/01.jpg'); }
+.panel:nth-of-type(2) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/02.jpg'); }
+.panel:nth-of-type(3) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/03.jpg'); }
+.panel:nth-of-type(4) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/04.jpg'); }
+.panel:nth-of-type(5) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/05.jpg'); }
+.panel:nth-of-type(6) .aside-visual { background-image: url('../../assets/images/telesurveillance-extra/01.jpg'); }
 
 /* 4. Hero banner backgrounds — per page */
 .page-hero, .hero, .hero-partner {
@@ -2526,15 +2526,15 @@ li:last-child { border-bottom: none; }
   background: linear-gradient(180deg, rgba(10,12,15,0.55) 0%, rgba(10,12,15,0.92) 100%);
   z-index: 1;
 }
-body.page-home    .hero::before        { background-image: url('/assets/bannieres/home.jpg'); }
-body.page-home    .page-hero::before   { background-image: url('/assets/bannieres/home.jpg'); }
-body.page-apropos .page-hero::before   { background-image: url('/assets/bannieres/apropos.png'); }
-body.page-tele    .page-hero::before   { background-image: url('/assets/bannieres/telesurveillance.jpg'); }
-body.page-video   .page-hero::before   { background-image: url('/assets/bannieres/videosurveillance.jpg'); }
-body.page-audit   .page-hero::before   { background-image: url('/assets/bannieres/conseil-audit.png'); }
+body.page-home    .hero::before        { background-image: url('../../assets/bannieres/home.jpg'); }
+body.page-home    .page-hero::before   { background-image: url('../../assets/bannieres/home.jpg'); }
+body.page-apropos .page-hero::before   { background-image: url('../../assets/bannieres/apropos.png'); }
+body.page-tele    .page-hero::before   { background-image: url('../../assets/bannieres/telesurveillance.jpg'); }
+body.page-video   .page-hero::before   { background-image: url('../../assets/bannieres/videosurveillance.jpg'); }
+body.page-audit   .page-hero::before   { background-image: url('../../assets/bannieres/conseil-audit.png'); }
 body.page-partners .page-hero::before,
-body.page-partners .hero-partner::before { background-image: url('/assets/bannieres/partenaires.png'); }
-body.page-contact .page-hero::before   { background-image: url('/assets/bannieres/contact.jpg'); }
+body.page-partners .hero-partner::before { background-image: url('../../assets/bannieres/partenaires.png'); }
+body.page-contact .page-hero::before   { background-image: url('../../assets/bannieres/contact.jpg'); }
 
 /* 5. Partner logos — new paths + force white monochrome */
 .brand-logo {
@@ -3372,18 +3372,18 @@ a[href^="tel:"]:hover .pulse-dot,
 }
 
 /* 4. Video surveillance — panel images via :nth-of-type */
-body.page-video .panel:nth-of-type(1) .aside-visual { background-image: url('/assets/images/telesurveillance/URBAIN & PARKING.jpg'); }
-body.page-video .panel:nth-of-type(2) .aside-visual { background-image: url('/assets/images/telesurveillance/SITES INDUSTRIELS ET COMMERCIAUX.jpg'); }
-body.page-video .panel:nth-of-type(3) .aside-visual { background-image: url('/assets/images/telesurveillance/PROPIETE PRIVES.jpg'); }
-body.page-video .panel:nth-of-type(4) .aside-visual { background-image: url('/assets/images/telesurveillance/IA ET ANALYSE VIDEO.jpg'); }
-body.page-video .panel:nth-of-type(5) .aside-visual { background-image: url('/assets/images/telesurveillance/CHANTIER ET SITE TEMPORAIRE.jpg'); }
+body.page-video .panel:nth-of-type(1) .aside-visual { background-image: url('../../assets/images/telesurveillance/URBAIN & PARKING.jpg'); }
+body.page-video .panel:nth-of-type(2) .aside-visual { background-image: url('../../assets/images/telesurveillance/SITES INDUSTRIELS ET COMMERCIAUX.jpg'); }
+body.page-video .panel:nth-of-type(3) .aside-visual { background-image: url('../../assets/images/telesurveillance/PROPIETE PRIVES.jpg'); }
+body.page-video .panel:nth-of-type(4) .aside-visual { background-image: url('../../assets/images/telesurveillance/IA ET ANALYSE VIDEO.jpg'); }
+body.page-video .panel:nth-of-type(5) .aside-visual { background-image: url('../../assets/images/telesurveillance/CHANTIER ET SITE TEMPORAIRE.jpg'); }
 
 /* 5. Conseil & Audit — panel images */
-body.page-audit .panel:nth-of-type(1) .aside-visual { background-image: url("/assets/images/conseil-audit/AUDIT OPERATIONNEL.jpg"); }
-body.page-audit .panel:nth-of-type(2) .aside-visual { background-image: url("/assets/images/conseil-audit/PERSONNALISATION DES ALARMES.jpg"); }
-body.page-audit .panel:nth-of-type(3) .aside-visual { background-image: url("/assets/images/conseil-audit/PARAETRAGE IA.jpg"); }
+body.page-audit .panel:nth-of-type(1) .aside-visual { background-image: url("../../assets/images/conseil-audit/AUDIT OPERATIONNEL.jpg"); }
+body.page-audit .panel:nth-of-type(2) .aside-visual { background-image: url("../../assets/images/conseil-audit/PERSONNALISATION DES ALARMES.jpg"); }
+body.page-audit .panel:nth-of-type(3) .aside-visual { background-image: url("../../assets/images/conseil-audit/PARAETRAGE IA.jpg"); }
 body.page-audit .panel:nth-of-type(4) .aside-visual { background-image: url("/assets/images/conseil-audit/COORDINATION FORCES DE L'ORDRE.png"); }
-body.page-audit .panel:nth-of-type(5) .aside-visual { background-image: url("/assets/images/conseil-audit/ACCOMPAGNEMENT POST DEPLOIEMENT.png"); }
+body.page-audit .panel:nth-of-type(5) .aside-visual { background-image: url("../../assets/images/conseil-audit/ACCOMPAGNEMENT POST DEPLOIEMENT.png"); }
 
 /* Ensure aside-visual shows the image full */
 .aside-visual {
@@ -3508,7 +3508,7 @@ body { padding-top: 68px; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/PAGE ACCUEIL/PAGE ACCUEIL SERVICE INTERVENTION final.png');
+  background-image: url('../../assets/images/PAGE ACCUEIL/PAGE ACCUEIL SERVICE INTERVENTION final.png');
   background-size: cover;
   background-position: center right;
   background-repeat: no-repeat;
@@ -4289,7 +4289,7 @@ footer {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/pourquoi-adsi/VIDEOSURVEILLANCE.jpg');
+  background-image: url('../../assets/images/pourquoi-adsi/VIDEOSURVEILLANCE.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

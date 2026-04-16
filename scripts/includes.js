@@ -41,12 +41,12 @@
 
   async function boot() {
     await Promise.all([
-      inject('[data-include="nav"]', '/partials/nav.html'),
-      inject('[data-include="footer"]', '/partials/footer.html'),
+      inject('[data-include="nav"]', 'partials/nav.html'),
+      inject('[data-include="footer"]', 'partials/footer.html'),
     ]);
     // Les partials sont injectés : on charge les scripts qui en dépendent.
-    await loadScript('/scripts/mobile-nav.js');
-    await loadScript('/scripts/enhance.js');
+    await loadScript('scripts/mobile-nav.js');
+    await loadScript('scripts/enhance.js');
   }
 
   if (document.readyState === 'loading') {
