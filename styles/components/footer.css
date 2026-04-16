@@ -1,0 +1,67 @@
+/* ============================================================
+   FOOTER — pied de page global
+   ------------------------------------------------------------
+   HTML source : partials/footer.html (injecté sur chaque page
+   via scripts/includes.js).
+   ============================================================ */
+
+footer {
+  background: var(--ink-2);
+  border-top: 1px solid var(--white-06);
+  padding: 56px 0 32px;
+  font-size: 13px;
+}
+
+/* Grille : marque (2fr) + 3 colonnes de liens (1fr chacune) */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--white-06);
+}
+
+/* Description sous le logo */
+.footer-brand-desc {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--white-30);
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 280px;
+}
+
+/* Titre de colonne */
+.footer-col h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--white-30);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* Liens de colonne */
+.footer-col a {
+  display: block;
+  color: var(--white-30);
+  text-decoration: none;
+  margin-bottom: 9px;
+  font-size: 13px;
+  transition: color .5s var(--ease);
+}
+.footer-col a:hover { color: var(--white-60); }
+
+/* Ligne inférieure : mentions légales + Securitas */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--white-30);
+  letter-spacing: 0.06em;
+}
+
+.securitas-note { color: rgba(245,244,240,0.18); }

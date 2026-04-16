@@ -1,0 +1,794 @@
+/* ============================================================
+   ADSI — Enhance layer (sliders autoplay + nav active)
+   Chargé APRÈS mobile.css pour compléter ses fonctionnalités.
+   ============================================================ */
+
+/* ── Nav : lien page courante ─────────────────────────────── */
+.nav-links a.is-active,
+.nav-links a.active {
+  color: var(--red, var(--accent, #2A7A9C));
+  pointer-events: none;
+  cursor: default;
+}
+.nav-links a.is-active::after,
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--red, var(--accent, #2A7A9C));
+}
+
+@media (max-width: 768px) {
+  .nav-links a.is-active,
+  .nav-links a.active {
+    background: rgba(42,122,156,0.08);
+    border-left: 3px solid var(--red, var(--accent, #2A7A9C));
+    padding-left: 12px;
+  }
+  .nav-links a.is-active::after,
+  .nav-links a.active::after { display: none; }
+}
+
+/* ── Sliders autoplay (services + values) ──────────────────
+   Seulement sur mobile. S'additionne au scroll-snap existant. */
+@media (max-width: 768px) {
+  .services-grid.is-autoplay,
+  .values-grid.is-autoplay,
+  .value-grid.is-autoplay,
+  .val-grid.is-autoplay {
+    scroll-behavior: smooth;
+  }
+
+  /* Indicateur de pagination pour sliders autoplay
+     Design : petit point visuel (8px) + grande zone de clic invisible (24x24px)
+     pour respecter l'accessibilite tactile sans alourdir le design. */
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;              /* espace reduit entre les zones de clic */
+    margin-top: 12px;
+    padding: 0 18px;
+  }
+  .slider-dots > button {
+    /* Zone de clic invisible : 24x24 px, confortable a toucher */
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    /* Neutralise le style natif du bouton (iOS / Chrome) */
+    -webkit-appearance: none;
+    appearance: none;
+    /* Le point visuel dessine par ::before */
+  }
+  .slider-dots > button::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: background .3s ease, transform .3s ease;
+  }
+  .slider-dots > button.is-current::before {
+    background: var(--red, var(--accent, #2A7A9C));
+    transform: scale(1.5);
+  }
+  .slider-dots > button:hover::before {
+    background: rgba(255,255,255,0.6);
+  }
+}
+
+/* Desktop : pas de dots */
+@media (min-width: 769px) {
+  .slider-dots { display: none; }
+}
+
+/* ── Footer adresse non cliquable ─────────────────────────── */
+.ft-col .ft-address,
+.ft-col span[data-address] {
+  color: rgba(255,255,255,0.6);
+  display: block;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+/* ============================================================
+   FIX 1 — Marques compatibles (desktop) : marquee auto + logos plus grands
+   Le keyframe était défini dans un @media mobile; en desktop
+   l'animation ne tournait donc pas.
+   ============================================================ */
+@keyframes brands-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (min-width: 769px) {
+  /* Logos plus grands uniquement dans la bande marquee homepage */
+  .brands-section .brand-logo {
+    height: 54px;
+    opacity: 0.7;
+  }
+  .brands-section .brand-logo:hover { opacity: 1; }
+
+  /* Marquee animé UNIQUEMENT pour la bande homepage (.brands-section) */
+  .brands-section .brands-row.brands-logos .brands-track {
+    animation: brands-marquee 28s linear infinite;
+    will-change: transform;
+  }
+  .brands-section .brands-row.brands-logos:hover .brands-track {
+    animation-play-state: paused;
+  }
+  .brands-section { padding: 72px 0; }
+
+  /* Partenaires (.brands-box) : grille fixe, PAS d'animation.
+     Neutralise le .brands-track créé par mobile-nav.js */
+  .brands-box .brands-row.brands-logos {
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .brands-box .brands-row.brands-logos .brands-track {
+    animation: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px 36px;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0;
+    transform: none;
+  }
+  .brands-box .brand-logo {
+    height: 32px;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Même neutralisation sur mobile pour le bloc .brands-box */
+  .brands-box .brands-row.brands-logos {
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .brands-box .brands-row.brands-logos .brands-track {
+    animation: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 24px;
+    width: 100%;
+    padding-right: 0;
+    transform: none;
+  }
+  .brands-box .brand-logo {
+    height: 26px;
+    opacity: 0.8;
+  }
+}
+
+/* ============================================================
+   FIX 2 — Aside-panel (pages Télé/Vidéo/Conseil) : carte de
+   droite alignée avec le titre du panel.
+   ============================================================ */
+@media (min-width: 769px) {
+  .panel-grid {
+    align-items: start;
+  }
+  .aside-panel {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+    margin-top: 0;
+  }
+  /* Si un ancêtre a overflow hidden, sticky casse — on force visible */
+  .content-wrap,
+  .panel,
+  .panel-grid {
+    overflow: visible;
+  }
+}
+
+/* ============================================================
+   FIX 3 — Section tabs (01–05) : tabs sticky toujours accessibles,
+   contenu scrollable normalement, CTAs du bas visibles.
+   ============================================================ */
+.tabs-strip {
+  overflow-x: auto;
+}
+@media (min-width: 769px) {
+  .content-wrap {
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    padding-bottom: 80px;
+  }
+  .panel {
+    display: block;
+    overflow: visible;
+    min-height: 0;
+    max-height: none;
+  }
+  /* Les panneaux inactifs doivent bien être masqués (certains utilisent
+     un display:none que l'on préserve) */
+  .panel[hidden],
+  .panel:not(.is-active):not(.active) { display: none; }
+  .panel.is-active,
+  .panel.active,
+  .panel[data-active="true"] { display: block; }
+
+  /* Bottom CTA espacé proprement */
+  .bottom-cta {
+    margin-top: 48px;
+    margin-bottom: 24px;
+  }
+}
+
+/* ============================================================
+   FIX 4 — Homepage "Votre projet en 4 étapes" : réalignement
+   de la ligne horizontale + dots sur chaque step.
+   L'ancienne règle plaçait le dot à left:0 et left:32px ce qui
+   cassait l'alignement avec le numéro. On recentre proprement.
+   ============================================================ */
+@media (min-width: 769px) {
+  .parcours-grid {
+    position: relative;
+    gap: 0;
+  }
+  /* Ligne traversant les 4 étapes au-dessus des chiffres */
+  .parcours-grid::before {
+    content: '';
+    position: absolute;
+    left: 14%;
+    right: 14%;
+    top: 36px;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(42,122,156,0.2) 8%,
+      rgba(42,122,156,0.45) 50%,
+      rgba(42,122,156,0.2) 92%,
+      transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .step {
+    position: relative;
+    z-index: 1;
+    padding-top: 48px;
+  }
+  /* Retire l'ancien dot décalé */
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--red, var(--accent, #2A7A9C));
+    border: 2px solid var(--ink, #0A0C0F);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(42,122,156,0.15);
+    z-index: 2;
+  }
+  /* Annule l'override ancien qui décalait les steps 2 et 3 */
+  .step:nth-child(2)::before,
+  .step:nth-child(3)::before {
+    left: 50%;
+  }
+  .step-n {
+    padding-top: 0;
+    text-align: center;
+  }
+  .step {
+    text-align: center;
+  }
+  .step h4,
+  .step p,
+  .step .step-badge {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Supprime les bordures latérales qui créent un effet "colonne" confus */
+  .step {
+    border-right: none;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .step:last-child { padding-left: 16px; }
+  .step:nth-child(2),
+  .step:nth-child(3) { padding-left: 16px; }
+}
+
+/* ============================================================
+   FIX 5 — Sections processus (Partenaires/Télé/Vidéo/Conseil)
+   Objectif : la ligne horizontale passe PILE au centre des
+   carrés .ps-dot (56×56), leurs fonds solides interrompent
+   visuellement la ligne → effet "pastilles connectées".
+   Harmonisation : items texte centrés sur les 4 pages.
+   ============================================================ */
+@media (min-width: 769px) {
+  .process-steps,
+  .ps-grid {
+    position: relative;
+    gap: 0;
+    align-items: start;
+  }
+
+  /* LIGNE : top = 28px (moitié de la hauteur du ps-dot 56px)
+     left/right = 12.5% (centre horizontal du 1er et du 4e carré
+     sur une grille 4 colonnes → 100%/8 = 12.5%) */
+  .process-steps::before,
+  .ps-grid::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 1px;
+    background: linear-gradient(to right,
+      rgba(42,122,156,0.55) 0%,
+      rgba(42,122,156,0.4) 50%,
+      rgba(42,122,156,0.55) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Ajustements si le processus a 3 ou 5 colonnes */
+  .process-steps[data-cols="3"]::before,
+  .ps-grid[data-cols="3"]::before { left: 16.66%; right: 16.66%; }
+  .process-steps[data-cols="5"]::before,
+  .ps-grid[data-cols="5"]::before { left: 10%; right: 10%; }
+
+  /* Items : z-index supérieur à la ligne, centrés */
+  .process-steps > .ps,
+  .ps-grid > .ps {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  /* ps-dot : au-dessus de la ligne, fond opaque pour l'interrompre */
+  .process-steps > .ps > .ps-dot,
+  .ps-grid > .ps > .ps-dot {
+    position: relative;
+    z-index: 2;
+    background: var(--ink, #0A0C0F);
+  }
+  /* Hover : on garde le fond solide pour ne pas "casser" visuellement
+     la ligne au survol */
+  .process-steps > .ps:hover > .ps-dot,
+  .ps-grid > .ps:hover > .ps-dot {
+    background: rgba(42,122,156,0.15);
+  }
+
+  /* HARMONISATION texte :
+     Sur Télé/Vidéo/Conseil, les items contiennent un <div>
+     wrapper après ps-dot avec texte gauche-aligné par défaut.
+     Sur Partenaires, tout est directement dans .ps, centré via
+     text-align:center du parent. On force partout le centrage. */
+  .process-steps > .ps > div:not(.ps-dot),
+  .ps-grid > .ps > div:not(.ps-dot),
+  .process-steps > .ps > h4,
+  .process-steps > .ps > p,
+  .ps-grid > .ps > h4,
+  .ps-grid > .ps > p {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Flèches intermédiaires (Télé/Vidéo) : redondantes avec la ligne */
+  .ps-arrow,
+  .process-arrow { display: none; }
+
+  /* HARMONISATION FINALE : sur Partenaires, `.ps` hérite du même
+     styling que `.legal-box` / `.form-box` (fond ink-3 + bordure
+     + box-shadow) → créait un effet "carte" absent des autres
+     pages. On réinitialise pour que les 4 pages affichent des
+     items sobres, flottants, connectés par la ligne. */
+  .process-steps > .ps,
+  .ps-grid > .ps {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .process-steps > .ps:hover,
+  .ps-grid > .ps:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+  /* Retire aussi les ::after / ::before décoratifs hérités
+     (accent bar hover) qui pourraient zébrer les items */
+  .process-steps > .ps::before,
+  .ps-grid > .ps::before {
+    content: none;
+  }
+}
+
+/* ============================================================
+   FIX 6 — Espacement vertical global entre sections
+   Problème : la plupart des sections ont padding: 140px 0 (inline
+   +) → ça crée 280px de vide entre deux sections
+   consécutives. On uniformise à 80px top+bottom en desktop,
+   64px en tablette. Le mobile (<=768px) est déjà géré par
+   mobile.css (56px/44px).
+   ============================================================ */
+@media (min-width: 1025px) {
+  .page-hero,
+  .hero-partner {
+    padding: 88px 0 72px;
+  }
+
+  .histoire-section,
+  .culture-section,
+  .expertise-section,
+  .reseau-section,
+  .groupe-section,
+  .offer-section,
+  .form-section,
+  .office-section,
+  .contact-section,
+  .cta-section,
+  .why-us-section,
+  .why-section,
+  .process-section,
+  .services-section,
+  .cases-section,
+  .brands-section,
+  .value-section,
+  .intervention-section,
+  .hn-section,
+  .parcours-section {
+    padding: 88px 0;
+  }
+
+  /* Sections à fond coloré (ink-2) : légèrement plus généreuses pour
+     créer une respiration visuelle entre les deux zones */
+  .culture-section,
+  .reseau-section,
+  .why-us-section {
+    padding: 96px 0;
+  }
+
+  /* Le hero page d'accueil garde son 92vh (ne pas toucher) */
+  .hero {
+    padding: 80px 0 56px;
+  }
+}
+
+/* Tablette paysage : proportionnellement moins */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .page-hero,
+  .hero-partner,
+  .histoire-section,
+  .culture-section,
+  .expertise-section,
+  .reseau-section,
+  .groupe-section,
+  .offer-section,
+  .form-section,
+  .office-section,
+  .contact-section,
+  .cta-section,
+  .why-us-section,
+  .why-section,
+  .process-section,
+  .services-section,
+  .cases-section,
+  .brands-section,
+  .value-section,
+  .intervention-section,
+  .parcours-section {
+    padding: 64px 0;
+  }
+}
+
+/* ============================================================
+   FIX 7 — Process section overflow
+   Plusieurs pages (Télé/Vidéo/Conseil) ont `.process-section
+   { overflow: hidden }` en inline, ce qui clippe la ligne
+   horizontale + les dots du FIX 5. On force visible.
+   ============================================================ */
+.process-section,
+.process-inner {
+  overflow: visible;
+}
+
+/* ============================================================
+   FIX 8 — Hero mobile compact
+   Masquer les panneaux stats/badges à droite des hero
+   intérieurs sur mobile. Garder uniquement titre + sous-titre
+   + CTA principal pour un impact immédiat.
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-panel,
+  .hero-side-card,
+  .hero-stats-panel,
+  .hero-numbers,
+  .page-hero-right,
+  .hero-stat,
+  .hs-stats,
+  .hero-anchors {
+    display: none;
+  }
+
+  .hero,
+  .page-hero,
+  .hero-partner {
+    min-height: auto;
+    padding: 48px 0 40px;
+  }
+
+  .hero-inner {
+    display: block;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Badge "03 / 03 — Services" et meta similaires : réduire taille */
+  .hero-meta,
+  .hero-badge {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+
+  /* CTA hero : centré, pleine largeur, bien visible */
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+  .hero-ctas > * {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   FIX 9 — Panel-grid, aside-panel, bottom-cta mobile
+   Les `.panel-grid` (1fr 300/380/400/420px) débordaient car
+   la colonne droite garde sa largeur fixe. On force 1 col,
+   aside pleine largeur, CTAs empilés.
+   ============================================================ */
+@media (max-width: 768px) {
+  .panel-grid,
+  .form-grid,
+  .contact-grid,
+  .offer-grid,
+  .groupe-inner,
+  .histoire-grid,
+  .expertise-grid,
+  .reseau-grid,
+  .int-right {
+    display: block;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .aside-panel,
+  .aside-visual,
+  .aside-content {
+    width: 100%;
+    max-width: 100%;
+    position: static;
+    top: auto;
+    margin-top: 24px;
+    float: none;
+  }
+
+  /* Aside-visual : ratio 4/3 pour mobile au lieu de 16/10 (trop haut) */
+  .aside-visual {
+    aspect-ratio: 4 / 3;
+    min-height: auto;
+  }
+
+  /* Bottom CTA : stack vertical, pleine largeur */
+  .bottom-cta,
+  .process-cta,
+  .cta-inner,
+  .dual-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .bottom-cta > *,
+  .process-cta > *,
+  .cta-inner > *,
+  .dual-cta > * {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+  .bottom-cta h3,
+  .bottom-cta h4,
+  .process-cta h3,
+  .cta-inner h2,
+  .cta-inner h3 {
+    font-size: clamp(18px, 5vw, 22px);
+    line-height: 1.25;
+  }
+  .bottom-cta .btn-red,
+  .bottom-cta .btn-out,
+  .process-cta .btn-red,
+  .process-cta .btn-out,
+  .cta-inner .btn-red,
+  .cta-inner .btn-primary,
+  .cta-inner .btn-out {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 18px;
+    min-height: 48px;
+  }
+
+  /* Content-wrap padding réduit sur mobile */
+  .content-wrap {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
+/* ============================================================
+   FIX 10 — Tabs → Accordéon mobile
+   Le JS convertit les .tab-btn en .acc-mobile-item.
+   Ici on les stylise de manière cohérente avec le reste du site.
+   ============================================================ */
+@media (max-width: 768px) {
+  .tabs-acc-wrap {
+    margin: 0 -2px 24px;
+  }
+
+  .acc-mobile-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+  }
+  .acc-mobile-item:first-child {
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .acc-mobile-head {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    padding: 18px 6px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: rgba(245,244,240,0.88);
+    text-align: left;
+    font-family: var(--sans, 'General Sans', sans-serif);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    justify-content: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    white-space: normal;
+    line-height: 1.3;
+    transition: color .25s ease;
+  }
+  .acc-mobile-head:hover,
+  .acc-mobile-item.is-open .acc-mobile-head {
+    color: #fff;
+  }
+
+  /* Numéro (tn) stylé en rouge */
+  .acc-mobile-head .tn {
+    color: var(--red, var(--accent, #2A7A9C));
+    font-family: var(--mono, 'General Sans', sans-serif);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+
+  /* Chevron droite */
+  .acc-mobile-head::after {
+    content: '+';
+    margin-left: auto;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 300;
+    color: var(--red, var(--accent, #2A7A9C));
+    transition: transform .35s cubic-bezier(.16,1,.3,1);
+    flex-shrink: 0;
+  }
+  .acc-mobile-item.is-open .acc-mobile-head::after {
+    transform: rotate(45deg);
+  }
+
+  .acc-mobile-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .5s cubic-bezier(.16,1,.3,1),
+                opacity .3s ease,
+                padding .35s ease;
+  }
+  .acc-mobile-item.is-open .acc-mobile-body {
+    max-height: 6000px;
+    opacity: 1;
+    padding: 4px 6px 28px;
+  }
+
+  /* Contenu interne du panel : hériter des styles existants */
+  .acc-mobile-body .panel-eyebrow {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+  .acc-mobile-body .panel-title {
+    font-size: clamp(20px, 5.5vw, 26px);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .acc-mobile-body .panel-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+}
+
+/* ============================================================
+   FIX 11 — Listes longues : toggle "Voir plus" mobile
+   ============================================================ */
+@media (max-width: 768px) {
+  .is-hidden-mobile {
+    display: none;
+  }
+
+  .list-toggle-mobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid rgba(42,122,156,0.35);
+    border-radius: 0;
+    color: var(--red, var(--accent, #2A7A9C));
+    font-family: var(--mono, 'General Sans', sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+    min-height: 44px;
+  }
+  .list-toggle-mobile:hover {
+    background: rgba(42,122,156,0.08);
+  }
+  .list-toggle-mobile::after {
+    content: '↓';
+    font-size: 14px;
+    transition: transform .3s ease;
+  }
+  .list-toggle-mobile:focus { outline: 2px solid rgba(42,122,156,0.4); outline-offset: 2px; }
+}

@@ -1,0 +1,28 @@
+/* ============================================================
+   MAIN.CSS — point d'entrée unique des styles partagés
+   ------------------------------------------------------------
+   Charge dans l'ordre :
+     1. base/        (variables, reset, utilitaires)
+     2. components/  (nav, footer, boutons…)
+     3. animations   (keyframes)
+   Puis chaque HTML charge en plus son propre styles/pages/<page>.css
+   pour les styles spécifiques.
+
+   NOTE technique : @import empile les requêtes HTTP (une par
+   fichier). C'est acceptable pour un petit site sans build. Pour
+   la prod, on pourra concaténer ces fichiers en un seul via un
+   script Node/Gulp.
+   ============================================================ */
+
+/* ── 1. Fondations ── */
+@import "base/variables.css";
+@import "base/reset.css";
+@import "base/utilities.css";
+
+/* ── 2. Composants partagés ── */
+@import "components/nav.css";
+@import "components/footer.css";
+@import "components/buttons.css";
+
+/* ── 3. Animations ── */
+@import "animations.css";

@@ -1,0 +1,1976 @@
+/* ============================================================
+   ADSI — Mobile Responsive Overrides (shared, all pages)
+   Desktop (>=1025px) strictement inchangé.
+   ============================================================
+
+   Historique : ce fichier contenait à l'origine ~698 "!important".
+   Ils ont été retirés automatiquement le 2026-04-15 car la cascade
+   CSS naturelle suffit (mobile.css est chargé APRÈS pages/*.css).
+   ============================================================ */
+
+/* ---------- Safeties globales ---------- */
+* { box-sizing: border-box; }
+
+/* Burger caché par défaut desktop */
+.nav-ham { display: none; }
+
+/* Safeties de viewport appliquées uniquement sous 1024px
+   (évite de clipper des éléments décoratifs legitimes en desktop).
+   NB: on utilise `overflow-x: clip` sur <body> au lieu de `hidden` :
+   - `clip` coupe le débordement SANS créer de conteneur de scroll,
+   - ce qui évite de casser `position: sticky` (sur <nav> notamment). */
+@media (max-width: 1024px) {
+  body { max-width: 100vw; overflow-x: clip; }
+  img:not(.pano-img):not(.hero-bg), video, iframe {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   TABLET + MOBILE   (<= 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+
+  /* Containers fluides */
+  .wrap, .container, .nav-inner {
+    padding-left: clamp(16px, 4vw, 32px);
+    padding-right: clamp(16px, 4vw, 32px);
+  }
+
+  /* Hero grids 2 cols -> 1 col dès tablette */
+  .hero-inner,
+  .panel-grid,
+  .contact-grid,
+  .form-grid,
+  .histoire-grid,
+  .expertise-grid,
+  .reseau-grid,
+  .groupe-inner,
+  .offer-grid,
+  .int-right {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* .why-grid : directement 1 colonne des la tablette
+     (la 2e div passe sous la 1ere au lieu d'etre a cote) */
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Les autres grilles 4 cols -> 2 cols */
+  .wuc-grid,
+  .why-us-cards,
+  .process-steps,
+  .ft-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* Grilles 3 cols -> 2 cols */
+  .services-grid,
+  .cantons-grid,
+  .value-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Paddings sections (tablette) */
+  .histoire-section,
+  .expertise-section,
+  .reseau-section,
+  .offer-section,
+  .form-section { padding: 80px 0; }
+  .groupe-section,
+  .office-section,
+  .page-hero { padding: 80px 0 56px; }
+
+  /* Hero moins envahissant */
+  .hero { min-height: 72dvh; padding: 72px 0 48px; }
+}
+
+/* ============================================================
+   MOBILE LARGE   (<= 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  .wrap, .container, .nav-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* -------- Typographie fluide -------- */
+  .hero-h1, h1 { font-size: clamp(30px, 7.5vw, 44px); line-height: 1.08; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(24px, 5.6vw, 32px); line-height: 1.15; }
+  h3 { font-size: clamp(18px, 4.4vw, 22px); }
+  p  { font-size: clamp(14px, 3.6vw, 16px); line-height: 1.6; }
+  .hs-year, .val-num { font-size: clamp(34px, 9vw, 48px); }
+
+  /* -------- Toutes les grilles multi-colonnes en 1 colonne -------- */
+  .hero-inner,
+  .panel-grid,
+  .services-grid,
+  .cases-grid,
+  .why-grid,
+  .wuc-grid,
+  .why-us-cards,
+  .process-steps,
+  .ft-grid,
+  .histoire-grid,
+  .expertise-grid,
+  .reseau-grid,
+  .groupe-inner,
+  .values-grid,
+  .cantons-grid,
+  .cta-inner,
+  .contact-grid,
+  .office-inner,
+  .choice-grid,
+  .form-grid,
+  .form-row,
+  .field-row,
+  .offer-grid,
+  .hero-numbers,
+  .value-grid,
+  .hs-stats,
+  .int-right,
+  .stepper-progress,
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns:repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="1fr 300px"],
+  [style*="1fr 320px"],
+  [style*="1fr 380px"],
+  [style*="1fr 400px"],
+  [style*="1fr 420px"],
+  [style*="1fr 500px"] {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* -------- Flex row -> column wrappable -------- */
+  .hero-ctas,
+  .hero-anchors,
+  .brands-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-ctas > *,
+  .hero-anchors > * { width: 100%; text-align: center; }
+
+  /* -------- Sections padding compactes -------- */
+  .hero,
+  section.hero { min-height: 66dvh; padding: 64px 0 40px; height: auto; }
+  .page-hero,
+  .hero-partner { min-height: auto; padding: 72px 0 40px; }
+  .pano-track,
+  .pano-fullscreen,
+  [style*="width: 100vw"][style*="height: 100vh"] {
+    height: auto;
+    min-height: 58dvh;
+    max-height: 75dvh;
+  }
+
+  section, .section,
+  .histoire-section,
+  .expertise-section,
+  .reseau-section,
+  .groupe-section,
+  .offer-section,
+  .form-section,
+  .office-section,
+  .cta-section,
+  .process-section { padding: 56px 0; }
+
+  /* Cards padding reduced */
+  .case-card { padding: 24px 20px; }
+  .aside-panel { padding: 28px 22px; max-width: 100%; }
+
+  /* Max-widths fixes */
+  .aside-panel,
+  .hero-stat,
+  .hero-numbers,
+  .hero-desc { max-width: 100%; }
+
+  /* -------- Formulaires -------- */
+  input, select, textarea {
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px; /* anti-zoom iOS */
+    box-sizing: border-box;
+  }
+  label { display: block; margin-bottom: 6px; }
+  .form-submit, button[type="submit"] { width: 100%; }
+
+  /* Choice items (contact) */
+  .choice { padding: 14px 14px; font-size: 14px; }
+
+  /* -------- Tap targets -------- */
+  a.btn, button, .btn-nav, .btn-red, .btn-out, .btn-primary,
+  .cta-btn, .nav-urgence, .stepper-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Tabs scrollables horizontal */
+  .tabs-inner, .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    padding-bottom: 4px;
+  }
+  .tabs-inner > *, .tabs > * { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Corners des surv-slot - plus petits */
+  .surv-slot .corners > i { width: 10px; height: 10px; }
+
+  /* ===============================================
+     NAVIGATION MOBILE — PANNEAU LATÉRAL DROIT
+     =============================================== */
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    gap: 12px;
+  }
+
+  /* --- Bouton burger (3 barres) --- */
+  .nav-ham {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0;
+    color: transparent;
+    position: relative;
+    z-index: 1003;
+    flex-shrink: 0;
+  }
+  .nav-ham::before,
+  .nav-ham::after,
+  .nav-ham > span {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform .35s cubic-bezier(.16,1,.3,1), opacity .2s ease;
+    transform-origin: center;
+  }
+  body.menu-open .nav-ham::before { transform: translateY(6.5px) rotate(45deg); }
+  body.menu-open .nav-ham::after  { transform: translateY(-6.5px) rotate(-45deg); }
+  body.menu-open .nav-ham > span  { opacity: 0; transform: scaleX(0); }
+
+  /* --- Backdrop derrière le panneau --- */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s ease;
+    z-index: 1001;
+  }
+  body.menu-open::after { opacity: 1; pointer-events: auto; }
+
+  /* --- Panneau latéral droit --- */
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: min(86vw, 360px);
+    height: 100dvh;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 80px 24px 32px;
+    background: #0a0a0a;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    box-shadow: -20px 0 40px rgba(0,0,0,0.5);
+    transform: translateX(100%);
+    transition: transform .4s cubic-bezier(.16,1,.3,1);
+    z-index: 1002;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  body.menu-open .nav-links { transform: translateX(0); }
+
+  .nav-links > a,
+  .nav-links > .btn-nav,
+  .nav-links > .nav-urgence {
+    width: 100%;
+    padding: 16px 4px;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    text-align: left;
+    justify-content: flex-start;
+    color: rgba(255,255,255,0.92);
+  }
+  .nav-links > a::after,
+  .nav-links > a::before { display: none; }
+
+  .nav-links > .nav-urgence {
+    margin-top: 16px;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 10px;
+    padding: 14px 16px;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+  }
+  .nav-links > .btn-nav {
+    margin-top: 10px;
+    background: var(--accent-red, #c41e3a);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 16px;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  /* Scroll lock */
+  body.menu-open { overflow: hidden; height: 100dvh; position: relative; }
+}
+
+/* ============================================================
+   MOBILE   (<= 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+
+  .wrap, .container, .nav-inner {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .hero-h1, h1 { font-size: clamp(26px, 8vw, 34px); }
+  h2 { font-size: clamp(22px, 6.5vw, 28px); }
+  .hs-year, .val-num { font-size: 36px; }
+
+  /* Toutes les grilles strictement en 1 colonne */
+  .cantons-grid,
+  .services-grid,
+  .value-grid,
+  .why-grid,
+  .wuc-grid,
+  .why-us-cards,
+  .process-steps,
+  .ft-grid,
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero, section.hero { min-height: 58dvh; padding: 52px 0 32px; }
+  .page-hero, .hero-partner { padding: 60px 0 32px; }
+  section, .section,
+  .histoire-section, .expertise-section, .reseau-section,
+  .groupe-section, .offer-section, .form-section,
+  .office-section, .cta-section, .process-section { padding: 44px 0; }
+
+  /* CTAs full-width */
+  .btn-red, .btn-nav, .btn-out, .cta-btn, .form-submit { width: 100%; }
+
+  /* Case / aside cards encore plus compacts */
+  .case-card { padding: 20px 16px; }
+  .aside-panel { padding: 22px 18px; }
+}
+
+/* ============================================================
+   MOBILE SMALL   (<= 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+  .wrap, .container, .nav-inner { padding-left: 12px; padding-right: 12px; }
+  .hero-h1, h1 { font-size: 24px; }
+  .nav-links { width: 92vw; }
+}
+
+/* ============================================================
+   COUCHE 2 — BUGS RÉSIDUELS
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ---- Panoramas : masquer le HUD décoratif ---- */
+  .pano-live-hud,
+  .pano-hud-top,
+  .pano-hud-bottom,
+  .pano-rec,
+  .pano-cam,
+  .pano-controls,
+  .pano-btn,
+  .plh-row,
+  .plh-date,
+  .plh-status,
+  .plh-time,
+  .ps-arrow,
+  .surv-cross,
+  .surv-cross::before,
+  .surv-cross::after {
+    display: none;
+  }
+
+  /* ---- surv-slot : aspect-ratio uniforme, corners plus petits ---- */
+  .surv-slot,
+  .surv-slot[class*="portrait"],
+  .surv-slot[class*="wide"],
+  .surv-slot[class*="square"] {
+    aspect-ratio: 4 / 3;
+    margin: 24px 0;
+  }
+  .surv-slot .corners > i {
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
+  }
+  .surv-slot .surv-cap {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ---- Panorama hero : masquer les overlays interactifs, garder bg ---- */
+  .pano-track {
+    height: auto;
+    min-height: 50dvh;
+    max-height: 65dvh;
+  }
+
+  /* ---- Boutons : autoriser le retour ligne ---- */
+  .btn-nav, .btn-red, .btn-out, .btn-primary,
+  .cta-btn, .hero-badge, .tab-btn, .stepper-btn,
+  .nav-urgence, a.btn, button.btn {
+    white-space: normal;
+    line-height: 1.2;
+    text-align: center;
+    word-break: keep-all;
+    hyphens: auto;
+  }
+
+  /* ---- Hero : background image mieux cadrée ---- */
+  .hero-bg {
+    object-position: center 30%;
+    background-position: center 30%;
+  }
+  .hero::before,
+  .hero::after {
+    background-position: center 30%;
+  }
+
+  /* ---- Case cards avec bg image ---- */
+  .case-card.has-img,
+  .case-card[style*="background"] {
+    background-position: center center;
+    min-height: 260px;
+  }
+
+  /* ---- Désactive les animations hover-only sur écrans tactiles ---- */
+  .wuc::after,
+  .case-card::after,
+  .btn-nav::after,
+  .btn-red::after,
+  .btn-out::after {
+    transform: none;
+    opacity: 1;
+  }
+  .reveal, .txt-reveal, .step-seq {
+    transform: none;
+    opacity: 1;
+  }
+
+  /* ---- Formulaire stepper contact : vertical compact ---- */
+  .stepper-progress {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 12px 0;
+  }
+  .stepper-progress > * {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+  .stepper-progress > .active,
+  .stepper-progress > [data-active="true"] {
+    background: var(--accent-red, #c41e3a);
+  }
+  .stepper-counter {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+  .stepper-btn {
+    padding: 12px 14px;
+    font-size: 13px;
+    flex: 1;
+  }
+
+  /* ---- Corners & decoration outlines plus légers ---- */
+  .corners > i {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stepper-counter { display: none; }
+  .surv-slot { aspect-ratio: 3 / 2; margin: 16px 0; }
+  .case-card.has-img { min-height: 220px; }
+}
+
+/* ============================================================
+   COUCHE 3 — SLIDERS HORIZONTAUX (scroll-snap, CSS pur)
+   Appliqués aux 8 sections de cards sous 768px.
+   ============================================================ */
+@media (max-width: 768px) {
+
+  .services-grid,
+  .cases-grid,
+  .wuc-grid,
+  .why-us-cards,
+  .process-steps,
+  .cantons-grid,
+  .values-grid,
+  .value-grid {
+    /* Override du "1 col" précédent : on repasse en flex horizontal */
+    display: flex;
+    grid-template-columns: none;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 18px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 14px;
+
+    /* Bord-à-bord : dépasse le padding du container parent */
+    margin-inline: -18px;
+    padding: 6px 18px 20px;
+    width: calc(100% + 36px);
+    max-width: calc(100% + 36px);
+  }
+  .services-grid::-webkit-scrollbar,
+  .cases-grid::-webkit-scrollbar,
+  .wuc-grid::-webkit-scrollbar,
+  .why-us-cards::-webkit-scrollbar,
+  .process-steps::-webkit-scrollbar,
+  .cantons-grid::-webkit-scrollbar,
+  .values-grid::-webkit-scrollbar,
+  .value-grid::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+  /* Chaque enfant devient une carte scroll-snap */
+  .services-grid > *,
+  .cases-grid > *,
+  .wuc-grid > *,
+  .why-us-cards > *,
+  .process-steps > *,
+  .cantons-grid > *,
+  .values-grid > *,
+  .value-grid > * {
+    flex: 0 0 82%;
+    max-width: 320px;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* .why-grid : force stack vertical (pas de carousel) */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    flex-direction: initial;
+    overflow: visible;
+    margin-inline: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  .why-grid > * {
+    flex: initial;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Le dernier item garde un petit espace à droite pour pouvoir le scroller entièrement */
+  .services-grid > *:last-child,
+  .cases-grid > *:last-child,
+  .wuc-grid > *:last-child,
+  .why-us-cards > *:last-child,
+  .process-steps > *:last-child,
+  .cantons-grid > *:last-child,
+  .values-grid > *:last-child,
+  .value-grid > *:last-child {
+    margin-right: 18px;
+  }
+
+  /* Cantons : items plus compacts (texte court) */
+  .cantons-grid > * {
+    flex: 0 0 48%;
+    max-width: 180px;
+  }
+
+  /* Process steps : forme "étape" plus compacte */
+  .process-steps > * {
+    flex: 0 0 75%;
+    max-width: 280px;
+  }
+
+  /* Cases avec image : ratio respecté */
+  .cases-grid > .case-card {
+    aspect-ratio: 4 / 5;
+    min-height: 320px;
+  }
+
+  /* Hint visuel subtil : fade sur le bord droit indiquant que ça continue */
+  .services-grid,
+  .cases-grid {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), rgba(0,0,0,0.6) 100%);
+    mask-image: linear-gradient(to right, #000 calc(100% - 32px), rgba(0,0,0,0.6) 100%);
+  }
+
+  /* .offer-grid : force stack vertical (pas de carousel) */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    flex-direction: initial;
+    overflow: visible;
+    margin-inline: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  .offer-grid > * {
+    flex: initial;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* .reseau-grid : force stack vertical (pas de carousel) */
+  .reseau-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    flex-direction: initial;
+    overflow: visible;
+    margin-inline: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  .reseau-grid > * {
+    flex: initial;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* ============================================================
+   COUCHE 4 — ACCORDÉON SERVICES (telesurveilance / videosurveillance)
+   Structure : .accordion > .acc-item > .acc-btn (.acc-hd + .acc-arrow)
+                                      > .acc-body (.acc-desc + .acc-quote + .acc-methods + .btn-red)
+   ============================================================ */
+@media (max-width: 768px) {
+  .accordion {
+    padding-top: 20px;
+    margin-inline: -6px;
+  }
+
+  .acc-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-inline: 6px;
+  }
+  .acc-item:first-child {
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .acc-btn {
+    padding: 18px 6px;
+    min-height: 56px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255,255,255,0.92);
+    gap: 14px;
+  }
+  .acc-btn.open { color: #fff; }
+
+  .acc-hd {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+  }
+  .acc-num {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--red, #c41e3a);
+    font-weight: 600;
+    flex-shrink: 0;
+    min-width: 22px;
+  }
+
+  .acc-arrow {
+    font-size: 22px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    transition: transform .3s ease, color .25s ease, border-color .25s ease;
+    flex-shrink: 0;
+  }
+  .acc-btn.open .acc-arrow {
+    transform: rotate(45deg);
+    color: var(--red, #c41e3a);
+    border-color: var(--red, #c41e3a);
+  }
+
+  .acc-body { padding: 4px 6px 24px; }
+  .acc-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .acc-quote {
+    margin: 14px 0;
+    padding: 12px 14px;
+    border-left-width: 3px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .acc-methods li {
+    padding: 12px 0;
+    gap: 14px;
+    align-items: center;
+  }
+  .am-ico {
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+  .am-ico svg { width: 18px; height: 18px; }
+  .am-text strong {
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #fff;
+  }
+  .am-text span {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .acc-body .btn-red {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 16px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .acc-btn { padding: 16px 4px; min-height: 52px; font-size: 14px; }
+  .acc-num { font-size: 11px; }
+  .acc-arrow { width: 28px; height: 28px; font-size: 20px; }
+  .acc-desc { font-size: 13.5px; }
+  .acc-quote { font-size: 13px; padding: 10px 12px; }
+  .am-ico { width: 28px; height: 28px; }
+  .am-ico svg { width: 16px; height: 16px; }
+  .am-text strong { font-size: 13.5px; }
+  .am-text span { font-size: 12px; }
+}
+
+/* ============================================================
+   COUCHE 5 — BANDEAU MARQUES COMPATIBLES (marquee auto)
+   Structure : .brands-inner > .brands-label + .brands-divider + .brands-row.brands-logos > img.brand-logo
+   ============================================================ */
+@media (max-width: 768px) {
+  .brands-section { padding: 36px 0; }
+
+  .brands-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 0;
+  }
+
+  .brands-label {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    white-space: nowrap;
+  }
+
+  .brands-divider { display: none; }
+
+  /* La piste visible : overflow hidden + mask fade sur les bords */
+  .brands-row.brands-logos {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding: 6px 0;
+
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%);
+  }
+
+  /* Track interne (créé par JS en dupliquant les enfants) */
+  .brands-row.brands-logos .brands-track {
+    display: flex;
+    align-items: center;
+    gap: 44px;
+    width: max-content;
+    flex-shrink: 0;
+    padding-right: 44px;
+    animation: brands-marquee 22s linear infinite;
+  }
+
+  .brand-logo {
+    height: 26px;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
+    opacity: 0.72;
+    filter: brightness(1.05);
+  }
+
+  /* Fallback si JS pas chargé : on garde au moins un scroll manuel */
+  .brands-row.brands-logos:not(:has(.brands-track)) {
+    overflow-x: auto;
+    gap: 36px;
+    padding: 6px 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .brands-row.brands-logos::-webkit-scrollbar { display: none; }
+
+  @keyframes brands-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo { height: 22px; }
+  .brands-row.brands-logos .brands-track { gap: 36px; animation-duration: 18s; }
+}
+
+/* Respecte reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  .brands-row.brands-logos .brands-track { animation: none; }
+}
+
+/* ============================================================
+   COUCHE 6 — CORRECTIFS CIBLÉS (bugs résiduels audit)
+   ============================================================ */
+@media (max-width: 1024px) {
+
+  /* Hero panel (homepage) : carte stats droite -> full-width */
+  .hero-panel,
+  .hero-stats-panel,
+  .hero-side-card {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+  }
+
+  /* Stats inline 4 colonnes -> grid 2x2 puis 1 col */
+  .hero-numbers,
+  .hs-stats,
+  .stats-inline,
+  .number-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Hero panel fusionné dans le flux, padding raisonnable */
+  .hero-panel,
+  .hero-stats-panel,
+  .hero-side-card {
+    padding: 22px 20px;
+    border-radius: 12px;
+  }
+
+  /* Stats : 2x2 avec séparateurs discrets */
+  .hero-numbers,
+  .hs-stats,
+  .stats-inline {
+    gap: 20px 16px;
+    padding: 20px 0;
+  }
+  .hero-numbers > *,
+  .hs-stats > *,
+  .stats-inline > * {
+    padding: 6px 0;
+  }
+
+  /* Case card image : ratio plus raisonnable mobile */
+  .cases-grid > .case-card.has-img,
+  .cases-grid > .case-card {
+    aspect-ratio: 3 / 4;
+    min-height: 280px;
+  }
+
+  /* Aside-panel (videosurveillance/tele) : ratio 4/3 et non 16/10 */
+  .aside-panel,
+  .aside-visual {
+    aspect-ratio: auto;
+    width: 100%;
+  }
+  .aside-panel .aside-visual,
+  .aside-visual > img,
+  .aside-visual > video {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* Tabs sticky (telesurveilance/video) : scroll-snap + fade bords */
+  .tabs-strip,
+  .tabs-inner {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .tabs-strip > *,
+  .tabs-inner > * {
+    scroll-snap-align: start;
+  }
+
+  /* Choice items (contact form) : tap target 48px + padding vertical */
+  .choice {
+    padding: 14px 16px;
+    min-height: 48px;
+    font-size: 14px;
+    border-radius: 8px;
+    gap: 10px;
+    align-items: center;
+  }
+
+  /* Channels / ch-item alignés avec form-box */
+  .ch-item {
+    padding: 14px 0;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+  }
+  .ch-item > :last-child {
+    grid-column: span 2;
+    margin-top: 4px;
+  }
+  .channels {
+    padding: 0;
+  }
+
+  /* Form-box padding homogène */
+  .form-box,
+  .contact-form-box {
+    padding: 24px 18px;
+  }
+
+  /* Content-wrap padding plus respirant sur tele/video */
+  .content-wrap {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 48px;
+  }
+
+  /* CTA dual boutons : stack vertical avec gap */
+  .cta-btns,
+  .hero-ctas,
+  .dual-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .cta-btns > *,
+  .dual-cta > * { width: 100%; }
+
+  /* Sections "Pourquoi nous" padding réduit */
+  .why-us-section,
+  .why-section {
+    padding: 60px 0;
+  }
+
+  /* Hero numbers item : label/value lisibles */
+  .hero-numbers .num-val,
+  .hs-stats .stat-num,
+  .stats-inline .num {
+    font-size: clamp(26px, 7vw, 36px);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .hero-numbers .num-label,
+  .hs-stats .stat-label,
+  .stats-inline .label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-panel, .hero-stats-panel, .hero-side-card {
+    padding: 18px 16px;
+  }
+  .cases-grid > .case-card,
+  .cases-grid > .case-card.has-img {
+    aspect-ratio: 4 / 5;
+    min-height: 260px;
+  }
+  .hero-numbers .num-val,
+  .hs-stats .stat-num { font-size: 28px; }
+  .form-box { padding: 20px 14px; }
+  .choice { padding: 12px 14px; min-height: 44px; }
+}
+
+/* ============================================================
+   COUCHE 7 — CORRECTIFS DESKTOP (demandes spécifiques utilisateur)
+   Scope : écrans >= 769px (desktop + tablette paysage)
+   ============================================================ */
+
+/* ============================================================
+   [1] MARQUES COMPATIBLES — label centré + marquee auto + logos plus grands
+   ============================================================ */
+.brands-section {
+  padding: 48px 0;
+}
+.brands-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 0;
+}
+.brands-label {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: rgba(255,255,255,0.4);
+  white-space: nowrap;
+  order: 1;
+}
+.brands-divider { display: none; }
+
+.brands-row.brands-logos {
+  order: 2;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: 100%;
+  max-width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: 6px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.brands-row.brands-logos .brands-track {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  width: max-content;
+  flex-shrink: 0;
+  padding-right: 72px;
+  animation: brands-marquee 28s linear infinite;
+}
+.brands-row.brands-logos:hover .brands-track {
+  animation-play-state: paused;
+}
+.brand-logo {
+  height: 38px;
+  width: auto;
+  max-width: none;
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: opacity .4s ease, filter .4s ease;
+  filter: brightness(1.1);
+}
+.brand-logo:hover {
+  opacity: 1;
+}
+
+/* Fallback sans JS : scroll manuel */
+.brands-row.brands-logos:not(:has(.brands-track)) {
+  overflow-x: auto;
+  gap: 60px;
+  padding: 6px 40px;
+  scrollbar-width: none;
+}
+
+/* ============================================================
+   [2] PANEL TÉLÉ/VIDÉO — compacter la section pour qu'elle tienne 1 viewport
+   ============================================================ */
+@media (min-width: 769px) {
+  .content-wrap { padding: 0 32px 48px; }
+  .panel { padding-top: 32px; padding-bottom: 32px; }
+  .panel-eyebrow { margin-bottom: 12px; font-size: 11px; }
+  .panel-title {
+    font-size: clamp(22px, 2.4vw, 30px);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .panel-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    max-width: 580px;
+  }
+  .panel-grid {
+    gap: 36px;
+    padding-top: 0;
+    align-items: start;
+  }
+
+  /* Liste méthodes / features (colonne gauche panel) */
+  .panel-grid .m-list,
+  .panel-grid ul.m-list,
+  .panel-grid .methods-list {
+    margin: 0;
+  }
+  .panel-grid .m-list li,
+  .panel-grid .methods-list li {
+    padding: 10px 0;
+  }
+  .panel-grid .m-text strong,
+  .panel-grid .methods-list strong { font-size: 14px; }
+  .panel-grid .m-text span,
+  .panel-grid .methods-list span { font-size: 12.5px; line-height: 1.5; }
+
+  /* Context/tags box */
+  .panel .ctx-box,
+  .panel .block-context {
+    padding: 14px 18px;
+    margin-top: 18px;
+  }
+
+  /* Aside-panel (carte droite) : sticky + aligné au titre + compact */
+  .aside-panel {
+    position: sticky;
+    top: 96px;
+    padding: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .aside-visual {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 200px;
+  }
+  .aside-content,
+  .aside-panel > .aside-text,
+  .aside-panel > div:not(.aside-visual) {
+    padding: 22px 24px;
+  }
+  .aside-quote {
+    font-size: 15px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    line-height: 1.45;
+  }
+  .aside-panel .aside-stat,
+  .aside-panel .stat-row {
+    padding: 12px 0;
+  }
+  .aside-panel .aside-cta,
+  .aside-panel .btn-out {
+    margin-top: 14px;
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+}
+
+/* ============================================================
+   [3] POURQUOI NOUS — chiffres centrés & plus grands, section plus courte
+   ============================================================ */
+@media (min-width: 769px) {
+  .why-us-section {
+    padding: 80px 0;
+  }
+  .why-us-header { margin-bottom: 40px; }
+  .why-us-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    min-height: 320px;
+  }
+  .wuc {
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background .5s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
+  }
+  .wuc:hover {
+    transform: translateY(-4px);
+    background: var(--ink-3, #15181d);
+  }
+  .wuc-num {
+    font-size: 56px;
+    font-weight: 300;
+    color: rgba(42,122,156,0.35);
+    line-height: 1;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  .wuc:hover .wuc-num {
+    color: var(--red, var(--accent, #2A7A9C));
+  }
+  .wuc-ico {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .wuc h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .wuc p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .wuc-tag {
+    margin-top: 18px;
+    align-self: flex-start;
+  }
+
+  /* Séparation franche avec la section suivante */
+  .why-us-section + * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* ============================================================
+   [4] PROCESS 4 ÉTAPES — ligne connectrice visible + responsive mobile
+   ============================================================ */
+@media (min-width: 769px) {
+  .process-section { padding: 80px 0; }
+  .process-header { margin-bottom: 40px; }
+  .process-steps {
+    position: relative;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  /* Ligne horizontale continue entre les dots */
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(12.5% + 28px);
+    right: calc(12.5% + 28px);
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(42,122,156,0.25) 8%,
+      rgba(42,122,156,0.35) 50%,
+      rgba(42,122,156,0.25) 92%,
+      transparent
+    );
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .ps {
+    position: relative;
+    padding: 0 12px;
+  }
+  .ps-dot {
+    z-index: 2;
+    background: var(--ink-2, #0d0f12);
+    border: 1px solid rgba(42,122,156,0.3);
+    transition: all .4s cubic-bezier(.16,1,.3,1);
+  }
+  .ps:hover .ps-dot {
+    background: var(--red, var(--accent, #2A7A9C));
+    color: #fff;
+    border-color: var(--red, var(--accent, #2A7A9C));
+    transform: scale(1.06);
+  }
+  .ps-arrow { display: none; } /* remplacé par la ligne continue */
+}
+
+/* Mobile : process en vertical avec ligne connectrice verticale */
+@media (max-width: 768px) {
+  .process-steps {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: row;
+    gap: 0;
+    position: relative;
+    overflow: visible;
+    margin-inline: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  /* Ligne verticale continue */
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    left: 28px;
+    width: 1px;
+    background: linear-gradient(to bottom,
+      rgba(42,122,156,0.35),
+      rgba(42,122,156,0.15)
+    );
+    display: block;
+    z-index: 0;
+  }
+  .ps {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto;
+    gap: 4px 16px;
+    align-items: start;
+    text-align: left;
+    padding: 20px 0;
+    flex: unset;
+    max-width: 100%;
+    min-width: 0;
+    scroll-snap-align: none;
+    position: relative;
+    z-index: 1;
+  }
+  .ps-dot {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    width: 56px;
+    height: 56px;
+    background: var(--ink-2, #0d0f12);
+    z-index: 2;
+    align-self: start;
+  }
+  .ps-num,
+  .ps h4 { grid-column: 2; align-self: start; text-align: left; margin: 0; }
+  .ps-num { font-size: 10px; margin-bottom: 6px; }
+  .ps h4 { font-size: 15px; margin-bottom: 6px; }
+  .ps p {
+    grid-column: 2;
+    font-size: 13px;
+    text-align: left;
+    margin: 0;
+  }
+  .ps-badge {
+    grid-column: 2;
+    margin-top: 10px;
+    align-self: start;
+    justify-self: start;
+  }
+  .ps-arrow { display: none; }
+}
+
+/* ============================================================
+   [5] HERO HOMEPAGE — rétrécir pour que tout tienne dans la bannière
+   ============================================================ */
+@media (min-width: 769px) {
+  .page-home .hero {
+    min-height: auto;
+    padding: 56px 0 40px;
+    display: flex;
+    align-items: center;
+  }
+  .page-home .hero-inner {
+    grid-template-columns: 1.2fr 380px;
+    gap: 56px;
+    align-items: center;
+  }
+  .page-home .hero-tag { margin-bottom: 18px; }
+  .page-home .hero h1 {
+    font-size: clamp(34px, 4vw, 52px);
+    margin-bottom: 18px;
+    line-height: 1.06;
+  }
+  .page-home .hero-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 480px;
+  }
+  .page-home .hero-ctas {
+    margin-bottom: 32px;
+    gap: 14px;
+  }
+  .page-home .hero-anchors {
+    gap: 0;
+  }
+  .page-home .hero-anchor {
+    padding: 10px 0;
+  }
+  .page-home .btn-primary {
+    padding: 12px 22px;
+    font-size: 13px;
+  }
+
+  /* Panel droite : padding compact */
+  .page-home .hero-panel-inner {
+    padding: 22px;
+  }
+  .page-home .panel-header {
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .page-home .panel-stat {
+    padding: 12px 0;
+  }
+  .page-home .stat-value-big {
+    font-size: 22px;
+  }
+  .page-home .stat-label-top {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+}
+
+/* ============================================================
+   COUCHE 8 — REFONTES DE SECTIONS (demandes utilisateur)
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   [1] Homepage .svc-card — liste d'arrows masquée
+       (fallback si du contenu persiste) + design épuré
+   ------------------------------------------------------------ */
+.svc-list,
+.svc-card .svc-list,
+.svc-card .svc-divider { display: none; }
+
+.svc-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 36px 32px;
+  min-height: 280px;
+  transition: background .4s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
+}
+.svc-card:hover {
+  transform: translateY(-3px);
+}
+.svc-card .svc-link {
+  margin-top: auto;
+  padding-top: 24px;
+  font-family: var(--mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   [2] Homepage .why-arg — icônes colorées à la place des numéros
+   ------------------------------------------------------------ */
+.arg-num { display: none; }
+
+.arg-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red, var(--accent, #2A7A9C));
+  flex-shrink: 0;
+  padding-top: 0;
+}
+.arg-icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* Ajuster la grille .why-arg pour accueillir l'icône 40px au lieu de 32px */
+.why-arg {
+  grid-template-columns: 44px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 24px 0;
+}
+
+/* ------------------------------------------------------------
+   [3] Homepage .parcours-grid — chiffres colorés + processus visible
+   ------------------------------------------------------------ */
+.step-n {
+  color: var(--red, var(--accent, #2A7A9C));
+  font-size: 42px;
+  font-weight: 300;
+  opacity: 0.95;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 769px) {
+  .parcours-grid {
+    position: relative;
+    gap: 0;
+  }
+  /* Ligne horizontale qui relie les 4 étapes */
+  .parcours-grid::before {
+    content: '';
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 28px;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(42,122,156,0.25) 10%,
+      rgba(42,122,156,0.35) 50%,
+      rgba(42,122,156,0.25) 90%,
+      transparent
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+  /* Dot rouge sur chaque step-n pour accentuer le processus */
+  .step {
+    position: relative;
+    z-index: 1;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--red, var(--accent, #2A7A9C));
+    border: 2px solid var(--ink, #0a0a0a);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(42,122,156,0.12);
+    z-index: 2;
+  }
+  .step:nth-child(2)::before,
+  .step:nth-child(3)::before {
+    left: 32px;
+  }
+  .step-n {
+    padding-top: 20px;
+  }
+}
+
+/* ------------------------------------------------------------
+   [4] Telesurveillance .panel — tout tenir dans un viewport
+   ------------------------------------------------------------ */
+@media (min-width: 769px) {
+  .content-wrap {
+    padding: 0 32px 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .panel {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: auto;
+  }
+  .panel-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+  }
+  .panel-title {
+    font-size: clamp(20px, 2vw, 26px);
+    margin-bottom: 10px;
+    line-height: 1.18;
+  }
+  .panel-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+  .panel-grid {
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Colonne gauche : contenu compact */
+  .panel-grid > div:first-child .block-label,
+  .panel-grid > div:first-child .m-label {
+    margin-bottom: 14px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+  .panel-grid .m-list li,
+  .panel-grid .methods-list li,
+  .panel-grid ul li {
+    padding: 8px 0;
+  }
+  .panel-grid .m-ico,
+  .panel-grid .am-ico {
+    font-size: 16px;
+    margin-top: 1px;
+  }
+  .panel-grid .m-text strong {
+    font-size: 13.5px;
+    margin-bottom: 2px;
+  }
+  .panel-grid .m-text span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Tags / contexts box */
+  .panel .ctx-box,
+  .panel .block-context,
+  .panel .context-box {
+    margin-top: 14px;
+    padding: 12px 16px;
+  }
+  .panel .ctx-box .block-label,
+  .panel .context-box .block-label {
+    font-size: 9px;
+    margin-bottom: 8px;
+  }
+
+  /* Aside-panel : compact, sticky */
+  .aside-panel {
+    position: sticky;
+    top: 88px;
+    padding: 0;
+    max-width: 100%;
+  }
+  .aside-visual {
+    aspect-ratio: 16 / 9;
+    min-height: 160px;
+  }
+  .aside-content,
+  .aside-panel > .aside-text,
+  .aside-panel > div:not(.aside-visual) {
+    padding: 18px 20px;
+  }
+  .aside-quote {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  .aside-panel .aside-stat,
+  .aside-panel .stat-row {
+    padding: 10px 0;
+  }
+  .aside-panel .aside-stat .stat-val,
+  .aside-panel .stat-row strong {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .aside-panel .aside-stat .stat-lbl,
+  .aside-panel .stat-row span {
+    font-size: 11px;
+  }
+  .aside-panel .aside-cta,
+  .aside-panel .btn-out {
+    margin-top: 12px;
+    padding: 10px 14px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Tabs strip plus fine */
+  .tabs-strip { padding: 0; }
+  .tabs-inner { gap: 8px; }
+  .tab-btn {
+    padding: 14px 14px;
+    font-size: 12.5px;
+  }
+  .tab-btn .tn { font-size: 9px; }
+}
+
+/* ------------------------------------------------------------
+   [5] Telesurveillance .why-us-section — retirer le look "cards"
+   ------------------------------------------------------------ */
+.why-us-cards {
+  background: transparent;
+  gap: 0;
+  min-height: auto;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.wuc {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 28px;
+  transform: none;
+}
+.wuc:last-child { border-right: none; }
+.wuc:hover {
+  background: transparent;
+  transform: none;
+}
+.wuc::after { display: none; }
+
+/* Numéro discret en haut, design plus aéré */
+.wuc-num {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--red, var(--accent, #2A7A9C));
+  opacity: 1;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+.wuc h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.wuc p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .wuc {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 20px;
+  }
+  .wuc:last-child { border-bottom: none; }
+}
+
+/* ============================================================
+   COUCHE 9 — PROPAGATION DES FIXES (apropos, partenaires,
+   videosurveillance, telesurveillance, conseil_audit, contact)
+   ============================================================ */
+
+/* Masquer les numéros 01-06 partout (remplacés par des icônes contextuelles) */
+.val-num,
+.wuc-num {
+  display: none;
+}
+
+/* Icônes val-ico et wuc-ico : taille, couleur, placement */
+.val-ico,
+.val-ico.icon-uniform,
+.wuc-ico,
+.wuc-ico.icon-uniform {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red, var(--accent, #2A7A9C));
+  margin-bottom: 18px;
+  flex-shrink: 0;
+  font-size: 0;
+  padding: 0;
+  background: transparent;
+}
+.val-ico svg,
+.wuc-ico svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  color: var(--red, var(--accent, #2A7A9C));
+}
+
+/* Hover subtil sur les cards contenant ces icônes */
+.val-card:hover .val-ico,
+.wuc:hover .wuc-ico {
+  color: var(--red, var(--accent, #2A7A9C));
+  transform: translateY(-2px);
+  transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+
+/* ============================================================
+   Process steps .ps (telesurveillance, videosurveillance,
+   partenaires, conseil_audit)
+   ============================================================ */
+.ps-num {
+  color: var(--red, var(--accent, #2A7A9C));
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  margin-bottom: 10px;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+@media (min-width: 769px) {
+  .process-steps {
+    position: relative;
+    gap: 0;
+  }
+  /* Ligne horizontale continue entre les dots */
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    left: calc(12.5% + 28px);
+    right: calc(12.5% + 28px);
+    top: 28px;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(42,122,156,0.25) 8%,
+      rgba(42,122,156,0.40) 50%,
+      rgba(42,122,156,0.25) 92%,
+      transparent
+    );
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+  .ps {
+    position: relative;
+    z-index: 1;
+  }
+  .ps .ps-dot {
+    position: relative;
+    z-index: 2;
+    background: var(--ink-2, #0d0f12);
+    border: 1px solid rgba(42,122,156,0.3);
+    transition: all .4s cubic-bezier(.16,1,.3,1);
+  }
+  .ps:hover .ps-dot {
+    background: var(--red, var(--accent, #2A7A9C));
+    color: #fff;
+    border-color: var(--red, var(--accent, #2A7A9C));
+    transform: scale(1.06);
+  }
+  .ps-arrow { display: none; }
+}
+
+/* ============================================================
+   Contact .progress-step .step-num — numéros colorés
+   ============================================================ */
+.progress-step .step-num,
+.progress-step .step-number,
+.stepper-counter {
+  color: var(--red, var(--accent, #2A7A9C));
+  font-weight: 600;
+}
+
+/* ============================================================
+   Respect des préférences utilisateur
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links { transition: none; }
+  body::after { transition: none; }
+  * { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   Écrans tactiles — on désactive le curseur personnalisé.
+   (@media hover:hover = la souris; pointer:fine = pointeur précis.
+    Sur téléphone/tablette, on revient au curseur standard du doigt.)
+   ============================================================ */
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+  .custom-cursor, .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ============================================================
+   Mobile en paysage (smartphone tenu horizontalement).
+   On évite qu'un <section class="hero"> trop haut empêche de
+   voir le contenu qui suit.
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero,
+  .page-hero,
+  .hero-partner {
+    min-height: auto;
+    height: auto;
+    padding: 56px 0 40px;
+  }
+}
+
+/* ============================================================
+   Safe-areas (iPhone avec encoche / barre du bas).
+   Associé au <meta viewport-fit=cover> dans le HTML.
+   ============================================================ */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  nav, .nav-inner {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+}

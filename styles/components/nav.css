@@ -1,0 +1,113 @@
+/* ============================================================
+   NAV — barre de navigation sticky en haut du site
+   ------------------------------------------------------------
+   HTML source : partials/nav.html (injecté sur chaque page via
+   scripts/includes.js).
+   Interactions : scripts/mobile-nav.js (hamburger)
+                  scripts/components/nav-active.js (lien actif)
+   ============================================================ */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  background: rgba(10,12,15,0.92);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo (carré rouge + wordmark) ── */
+.nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+
+.logo-sq {
+  width: 32px; height: 32px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 16px; color: white; font-weight: 600;
+  position: relative;
+}
+
+.logo-wordmark {
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+.logo-wordmark span {
+  display: block;
+  font-size: 10px; font-weight: 300;
+  color: var(--white-30);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+}
+
+/* ── Liens principaux ── */
+.nav-links { display: flex; align-items: center; gap: 36px; }
+
+.nav-links a {
+  color: var(--white-60);
+  text-decoration: none;
+  font-size: 13px; font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: color .5s var(--ease);
+  position: relative;
+}
+.nav-links a:hover { color: var(--white); }
+
+/* Soulignement animé au survol */
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--red);
+  transition: width .5s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* ── Badge "urgence" + point pulsant ── */
+.nav-urgence {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--white-60);
+}
+
+.pulse-dot {
+  width: 6px; height: 6px;
+  border-radius: 0;
+  background: var(--red);
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ── Bouton CTA dans la nav ── */
+.btn-nav {
+  background: var(--red); color: white;
+  padding: 8px 18px;
+  font-size: 13px; font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  transition: background .5s var(--ease), border-color .5s var(--ease);
+  white-space: nowrap;
+}
+.btn-nav:hover {
+  background: transparent;
+  border-color: var(--red);
+  color: var(--red);
+}
+.btn-nav::after { display: none; }

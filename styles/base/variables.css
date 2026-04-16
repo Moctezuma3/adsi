@@ -1,0 +1,57 @@
+/* ============================================================
+   VARIABLES GLOBALES — source unique de vérité
+   ------------------------------------------------------------
+   Toutes les couleurs, fontes, mesures et courbes d'animation
+   sont définies ici. Modifier une valeur met à jour le site
+   entier. Ne pas redéfinir :root ailleurs.
+   ============================================================ */
+
+:root {
+  /* ── Couleurs de fond (dégradés de gris-noir) ── */
+  --ink:   #0A0C0F;
+  --ink-2: #111318;
+  --ink-3: #181C23;
+  --ink-4: #1F232C;
+
+  /* ── Couleur d'accent (bleu ADSI) ── */
+  --accent:    #2A7A9C;
+  --red:       var(--accent);           /* alias rétrocompat */
+  --red-dim:   rgba(42,122,156,0.12);
+  --red-glow:  rgba(42,122,156,0.05);
+
+  /* ── Accent rouge secondaire (uniquement contact) ── */
+  --accent-red:      #C8332F;
+  --accent-red-dim:  rgba(200,51,47,0.12);
+  --accent-red-glow: rgba(200,51,47,0.22);
+
+  /* ── Couleur de texte + nuances d'opacité ──
+     Deux conventions coexistent (--white* = home, --w* = autres pages).
+     Les deux pointent vers les mêmes valeurs. */
+  --white:    #F5F4F0;
+  --w:        #F5F4F0;
+  --white-60: rgba(245,244,240,0.6);
+  --w70:      rgba(245,244,240,0.7);
+  --w50:      rgba(245,244,240,0.5);
+  --white-30: rgba(245,244,240,0.3);
+  --w30:      rgba(245,244,240,0.3);
+  --white-12: rgba(245,244,240,0.12);
+  --w12:      rgba(245,244,240,0.12);
+  --white-06: rgba(245,244,240,0.06);
+  --w06:      rgba(245,244,240,0.06);
+  --white-03: rgba(245,244,240,0.03);
+  --w03:      rgba(245,244,240,0.03);
+
+  /* ── Typographie ──
+     Une seule famille active : 'General Sans'.
+     Les trois alias permettent de différencier l'usage sémantique. */
+  --serif: 'General Sans', sans-serif;
+  --sans:  'General Sans', sans-serif;
+  --mono:  'General Sans', sans-serif;
+
+  /* ── Mesures globales ── */
+  --max: 1200px;                                    /* largeur max de contenu */
+
+  /* ── Courbes d'animation (easing) ── */
+  --ease:      cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-slow: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,18 @@
+# Sauvegardes locales
+styles/_backup/
+styles/*.backup
+*.bak
+
+# Dépendances (si un jour on ajoute Node)
+node_modules/
+package-lock.json
+
+# OS / Éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs
+*.log

@@ -1,0 +1,37 @@
+/* ============================================================
+   CLASSES UTILITAIRES
+   ------------------------------------------------------------
+   Petites classes réutilisables partout. Si tu dois ajouter un
+   style "juste une fois", pense d'abord à utiliser une classe
+   utilitaire plutôt qu'un style inline.
+   ============================================================ */
+
+/* ── Conteneur centré avec largeur max ── */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Animations d'apparition (voir animations.css pour @keyframes) ──
+   À poser sur un élément pour l'animer en fade + slide up au chargement.
+   Les variantes anim-2, anim-3… ajoutent un délai pour créer une cascade. */
+/* Animation raccourcie (0.6s) — remplace style="animation:fadeUp .6s ease both" inline */
+.fade-in { animation: fadeUp 0.6s ease both; }
+
+.anim-1 { animation: fadeUp 0.7s        ease both; }
+.anim-2 { animation: fadeUp 0.7s 0.15s  ease both; }
+.anim-3 { animation: fadeUp 0.7s 0.28s  ease both; }
+.anim-4 { animation: fadeUp 0.7s 0.42s  ease both; }
+.anim-5 { animation: fadeUp 0.7s 0.56s  ease both; }
+
+/* ── Raccourcis couleur texte (opacités du blanc) ──
+   Remplacent des style="color:var(--w50)" inline. */
+.c-w    { color: var(--white); }
+.c-w70  { color: var(--w70); }
+.c-w60  { color: var(--white-60); }
+.c-w50  { color: var(--w50); }
+.c-w30  { color: var(--white-30); }
+.c-accent { color: var(--accent); }

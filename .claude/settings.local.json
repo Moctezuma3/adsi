@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"C:/Users/topra/Desktop/adsi-final/styles/pages/\"*.css \"C:/Users/topra/Desktop/adsi-final/styles/\"*.css)",
+      "Bash(mv \"PAGE ACCUEIL.jpg\" \"home.jpg\")",
+      "Bash(mv \"PAGE A PROPOS.png\" \"apropos.png\")",
+      "Bash(mv \"PAGE AUDIT.png\" \"conseil-audit.png\")",
+      "Bash(mv \"PAGE CONTACT.jpg\" \"contact.jpg\")",
+      "Bash(mv \"PAGE PARTENAIRES.png\" \"partenaires.png\")",
+      "Bash(mv \"PAGE ACCUEIL\" \"home\")",
+      "Bash(mv \"PAGE A PROPOS\" \"apropos\")",
+      "Bash(mv \"PAGE CONSEILS ET AUDIT\" \"conseil-audit\")",
+      "Bash(mv \"PAGE TELESURVEILLANCE\" \"telesurveillance\")",
+      "Bash(mv \"POURQUOI ADSI\" \"pourquoi-adsi\")",
+      "Bash(mv \"TELESURVEILLANCE IMAGES\" \"telesurveillance-extra\")",
+      "Bash(wc -l *.css)",
+      "Bash(rm -rf styles/_backup)",
+      "Bash(rm -f styles/mobile.css.backup)",
+      "Bash(rmdir scripts/components)",
+      "Bash(gh auth:*)",
+      "Bash(git --version)",
+      "Bash(winget --version)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(git config:*)"
+    ]
+  }
+}

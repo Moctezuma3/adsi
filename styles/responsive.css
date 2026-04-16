@@ -1,0 +1,413 @@
+/* ============================================================================
+   ADSI — Responsive Upgrades (chargé EN DERNIER)
+   ----------------------------------------------------------------------------
+   Ce fichier apporte les corrections UX modernes qui manquaient, sans
+   réécrire tout le CSS. Chaque règle est commentée pour expliquer POURQUOI.
+
+   Ordre de chargement voulu :
+     1. pages/<page>.css       (styles spécifiques à la page)
+     2. enhance.css            (sliders, animations partagées)
+     3. mobile.css             (surcharges responsive existantes)
+     4. responsive.css         ← CE FICHIER : corrections finales
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. TOUCH TARGETS — tous les éléments cliquables doivent faire ≥ 44×44 px
+   ----------------------------------------------------------------------------
+   Pourquoi ? Les guidelines Apple/Google recommandent 44 px minimum pour
+   qu'un doigt puisse viser sans se tromper. Un lien texte de 13 px avec
+   peu de padding est quasi impossible à toucher sur un petit écran.
+   On applique ça uniquement sur écran tactile/mobile — pas sur desktop.
+   ============================================================================ */
+@media (max-width: 768px) {
+  /* Liens du menu mobile UNIQUEMENT quand le menu est ouvert (panneau vertical).
+     Sur desktop/tablette le menu est horizontal, donc PAS de min-height 44
+     (ça casserait la barre). */
+  body.menu-open .nav-links a,
+  .footer-col a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  /* Boutons : padding minimum pour être doigts-friendly.
+     ATTENTION : on cible UNIQUEMENT les boutons-actions, pas les petits
+     contrôles (points de slider, onglets...) qui ont leur propre taille. */
+  .btn-primary,
+  .btn-secondary,
+  .btn-cta-primary,
+  .btn-cta-secondary,
+  form button[type="submit"] {
+    min-height: 44px;
+  }
+
+  /* Le hamburger lui-même */
+  .nav-ham {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+
+/* ============================================================================
+   1bis. LOGO — taille fixe et cohérente partout
+   ----------------------------------------------------------------------------
+   Pourquoi ? Dans home.css plusieurs règles `.logo-img` se surchargent mais
+   la dernière n'a pas de hauteur. Résultat : sur certaines pages le logo
+   apparaît à sa taille naturelle (énorme). On force une taille raisonnable
+   ici, chargé en dernier, donc ça gagne.
+   ============================================================================ */
+.logo-img {
+  height: 32px;
+  width: auto;
+  display: block;
+  max-width: none;     /* annule le max-width:100% appliqué plus bas aux <img> */
+}
+
+/* Version footer un peu plus petite */
+footer .logo-img {
+  height: 28px;
+}
+
+
+/* ============================================================================
+   1ter. FOOTER — styles COMPLETS partagés
+   ----------------------------------------------------------------------------
+   Pourquoi ? Le <footer> est chargé depuis partials/footer.html sur les 7
+   pages, mais seules les règles de home.css le stylaient complètement.
+   Les autres pages (contact, apropos, etc.) n'avaient que `footer { ... }`
+   de base → footer cassé (logo minuscule, colonnes empilées sans espace,
+   liens en ligne). On met ici les règles qui doivent s'appliquer partout.
+   ============================================================================ */
+footer {
+  background: var(--ink-2, #111318);
+  border-top: 1px solid var(--white-06, rgba(245,244,240,0.06));
+  padding: 56px 0 32px;
+  font-size: 13px;
+  color: var(--white-30, rgba(245,244,240,0.3));
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--white-06, rgba(245,244,240,0.06));
+}
+
+.footer-brand-desc {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--white-30, rgba(245,244,240,0.3));
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  font-family: var(--mono, 'General Sans', sans-serif);
+  font-size: 10px;
+  color: var(--white-30, rgba(245,244,240,0.3));
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--white-30, rgba(245,244,240,0.3));
+  text-decoration: none;
+  margin-bottom: 9px;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+.footer-col a:hover { color: var(--white-60, rgba(245,244,240,0.6)); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--mono, 'General Sans', sans-serif);
+  font-size: 10px;
+  color: var(--white-30, rgba(245,244,240,0.3));
+  letter-spacing: 0.06em;
+}
+.securitas-note { color: rgba(245,244,240,0.18); }
+
+/* Footer responsive : 2 colonnes en tablette, 1 en mobile */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-brand-desc { max-width: 100%; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+/* Sur petits écrans, le logo reste compact mais lisible */
+@media (max-width: 480px) {
+  .logo-img { height: 28px; }
+}
+
+/* Filtre blanc standard (utilitaire réutilisable).
+   Avant : `filter: brightness(0) invert(1)` répété 16× dans le CSS.
+   Utilisation : <img class="logo-img logo-invert" ...> */
+.logo-invert,
+.logo-img {
+  filter: brightness(0) invert(1);
+}
+
+
+/* ============================================================================
+   2. FORMULAIRES — éviter le zoom automatique iOS et améliorer le tactile
+   ----------------------------------------------------------------------------
+   Pourquoi ? Sur iOS, si la taille de police d'un <input> est < 16 px, le
+   navigateur zoome automatiquement quand on tape dedans → très désagréable.
+   On force 16 px minimum sur mobile, plus un bon padding pour le tactile.
+   ============================================================================ */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px;       /* évite le zoom iOS */
+    min-height: 44px;      /* zone de tap confortable */
+    padding: 12px 14px;
+    border-radius: 0;      /* cohérent avec le design ADSI */
+  }
+
+  textarea {
+    min-height: 120px;     /* une zone de texte doit être visible */
+    line-height: 1.5;
+  }
+
+  /* Labels bien espacés pour scanner rapidement */
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+}
+
+
+/* ============================================================================
+   3. FEEDBACK TACTILE — retirer le flash bleu iOS et améliorer le "tap"
+   ----------------------------------------------------------------------------
+   Pourquoi ? Par défaut, iOS met un halo bleu affreux quand on tape un lien.
+   On le remplace par une légère opacité, plus élégant.
+   ============================================================================ */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  /* Petit feedback visuel au tap (remplace :hover qui n'existe pas sur touch) */
+  a:active,
+  button:active {
+    opacity: 0.7;
+    transition: opacity 0.1s ease;
+  }
+}
+
+
+/* ============================================================================
+   4. ESPACEMENTS FLUIDES — padding qui s'adapte à la taille d'écran
+   ----------------------------------------------------------------------------
+   Pourquoi ? Avant, les sections avaient `padding: 140px 0` fixe. Sur mobile,
+   140 px c'est énorme (20 % de la hauteur écran !). Avec clamp(min, fluide, max)
+   le padding s'adapte automatiquement :
+     - min : 48 px (petit mobile)
+     - fluide : 10 % de la largeur
+     - max : 140 px (desktop)
+   Plus besoin de media queries pour ajuster !
+   ============================================================================ */
+.services-section,
+.why-section,
+.cases-section,
+.cta-section,
+.intervention-section,
+.form-section {
+  padding-top: clamp(48px, 10vw, 140px);
+  padding-bottom: clamp(48px, 10vw, 140px);
+}
+
+/* Padding horizontal du conteneur : idem, fluide */
+.container,
+.nav-inner {
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+}
+
+
+/* ============================================================================
+   5. TYPOGRAPHIE FLUIDE — désactivé pour l'instant
+   ----------------------------------------------------------------------------
+   Le site a déjà des tailles finement ajustées par classe (.hero h1, .s-title,
+   etc.) dans home.css. Appliquer des clamp() génériques sur h1/h2/h3/p
+   écraserait ce travail et rendrait les textes incohérents.
+   Si tu veux améliorer la typo, édite directement les règles ciblées dans
+   styles/pages/home.css.
+   ============================================================================ */
+
+
+/* ============================================================================
+   6. IMAGES — fluides par défaut (évite les débordements horizontaux)
+   ----------------------------------------------------------------------------
+   Pourquoi ? Une image plus large que son parent casse la mise en page.
+   max-width:100% la contraint tout en gardant le ratio.
+   ============================================================================ */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ============================================================================
+   7. MENU MOBILE — animation d'ouverture fluide
+   ----------------------------------------------------------------------------
+   Pourquoi ? Le menu apparaissait "sèchement". On ajoute une transition
+   douce avec un effet de décalage vertical qui rend le tout plus pro.
+   ============================================================================ */
+@media (max-width: 768px) {
+  .nav-links {
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+                opacity 0.25s ease;
+  }
+
+  /* État fermé : décalé vers le haut + invisible */
+  body:not(.menu-open) .nav-links {
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* État ouvert : en place + visible */
+  body.menu-open .nav-links {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Empêcher le scroll du body quand le menu est ouvert */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+
+/* ============================================================================
+   8. GRILLES — passage propre de N colonnes à 1 colonne en mobile
+   ----------------------------------------------------------------------------
+   Pourquoi ? auto-fit + minmax() = le navigateur décide combien de colonnes
+   il peut caser en fonction de la largeur. Plus besoin de breakpoints.
+   On passe de 3 à 2 à 1 colonnes automatiquement.
+   ============================================================================ */
+.services-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.cases-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.footer-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: clamp(24px, 5vw, 40px);
+}
+
+
+/* ============================================================================
+   9. DÉTAILS — petites finitions pour que le site sente le "pro"
+   ============================================================================ */
+
+/* Smooth scroll respectant les préférences */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Focus visible au clavier uniquement (pas au clic) — accessibilité */
+:focus-visible {
+  outline: 2px solid var(--red, var(--accent, #2A7A9C));
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Sélection de texte colorée */
+::selection {
+  background: var(--red, var(--accent, #2A7A9C));
+  color: var(--white, #F5F4F0);
+}
+
+
+/* ============================================================================
+   10. THÈME COULEUR (barre du navigateur mobile)
+   ----------------------------------------------------------------------------
+   ⚠ Ceci doit être aussi dans le <head> HTML via <meta name="theme-color">.
+   Ici on règle juste le scrollbar.
+   ============================================================================ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--red, var(--accent, #2A7A9C)) transparent;
+}
+
+
+/* ============================================================================
+   FIX MARQUEE PARTENAIRES — reactive le slide auto sur la page partenaires
+   ----------------------------------------------------------------------------
+   Sur partenaires.html, les logos sont dans .brands-box (pas .brands-section).
+   enhance.css et mobile.css desactivent le marquee pour .brands-box. On le
+   reactive ici (dernier fichier charge -> gagne la cascade), uniquement sur
+   la page partenaires (selecteur body.page-partners pour ne pas affecter
+   d'autres pages qui pourraient utiliser .brands-box autrement).
+   ============================================================================ */
+body.page-partners .brands-box .brands-row.brands-logos {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+body.page-partners .brands-box .brands-row.brands-logos .brands-track {
+  animation: brands-marquee 28s linear infinite;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 44px;
+  width: max-content;
+  padding-right: 44px;
+  transform: none;
+}
+body.page-partners .brands-box .brands-row.brands-logos:hover .brands-track {
+  animation-play-state: paused;
+}
+
+
+/* ============================================================================
+   FIX BREADCRUMB — empeche le debordement sur mobile
+   ----------------------------------------------------------------------------
+   Le breadcrumb (ex: "ACCUEIL / SERVICES / TELESURVEILLANCE") etait en
+   display:flex sans flex-wrap : sur ecran etroit le dernier mot sortait
+   du conteneur. On autorise le retour a la ligne + on permet la coupure
+   du dernier mot s'il est vraiment trop long.
+   ============================================================================ */
+.breadcrumb {
+  flex-wrap: wrap;
+  row-gap: 4px;
+  max-width: 100%;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+

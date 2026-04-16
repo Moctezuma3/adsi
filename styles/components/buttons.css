@@ -1,0 +1,66 @@
+/* ============================================================
+   BUTTONS — boutons réutilisés partout
+   ------------------------------------------------------------
+   Convention :
+   - .btn-primary : bouton CTA principal (fond rouge, plein)
+   - .btn-secondary : bouton texte discret avec pulse-dot
+   - .btn-nav : variante compacte pour la nav (voir nav.css)
+   - .btn-red : alias historique du CTA principal
+   - .btn-out : bouton contour (pas de fond, bordure)
+   ============================================================ */
+
+/* ── CTA principal ── */
+.btn-primary,
+.btn-red {
+  background: var(--red);
+  color: white;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--red);
+  transition: background .5s var(--ease), color .5s var(--ease);
+  display: inline-block;
+  cursor: pointer;
+}
+.btn-primary:hover,
+.btn-red:hover {
+  background: transparent;
+  color: var(--red);
+}
+
+/* ── Bouton texte secondaire (avec pulse-dot) ── */
+.btn-secondary {
+  color: var(--white-60);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  font-family: var(--mono);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .5s var(--ease);
+}
+.btn-secondary:hover { color: var(--white); }
+.btn-secondary .pulse-dot { flex-shrink: 0; }
+
+/* ── Bouton contour (variante outline) ── */
+.btn-out {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--white-30);
+  transition: border-color .5s var(--ease), color .5s var(--ease);
+  cursor: pointer;
+}
+.btn-out:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
